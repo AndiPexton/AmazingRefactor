@@ -17,7 +17,7 @@ namespace Amazing
         public static int[,] BuildMaze(int H, int V)
         {
             var W = new int[H + 1, V + 1];
-            var D = new int[H + 1, V + 1];
+            var maze = new int[H + 1, V + 1];
 
             var Q = 0;
             var Z = 0;
@@ -26,7 +26,7 @@ namespace Amazing
 
             foreach (var I in Enumerable.Range(1, H)) //130 FOR I=1 TO H
             {
-                D[I, 0] = I == X ? 3 : 2;
+                maze[I, 0] = I == X ? 3 : 2;
             }
 
        
@@ -257,7 +257,7 @@ namespace Amazing
             W[R - 1, S] = C;
            
             C = C + 1;
-            D[R - 1, S] = 2;
+            maze[R - 1, S] = 2;
             R = R - 1;
           
             if (C == H * V + 1) goto _1200;
@@ -269,7 +269,7 @@ namespace Amazing
             _990:
             C = C + 1;
            
-            D[R, S - 1] = 1;
+            maze[R, S - 1] = 1;
             S = S - 1;
             if (C == H * V + 1) goto _1200;
            
@@ -279,12 +279,12 @@ namespace Amazing
             _1020:
             W[R + 1, S] = C;
             C = C + 1;
-            if (D[R, S] == 0) goto _1050;
-            D[R, S] = 3;
+            if (maze[R, S] == 0) goto _1050;
+            maze[R, S] = 3;
             goto _1060;
 
             _1050:
-            D[R, S] = 2;
+            maze[R, S] = 2;
 
             _1060:
             R = R + 1;
@@ -297,12 +297,12 @@ namespace Amazing
      
             W[R, S + 1] = C;
             C = C + 1;
-            if (D[R, S] == 0) goto _1120;
+            if (maze[R, S] == 0) goto _1120;
       
-            D[R, S] = 3;
+            maze[R, S] = 3;
             goto _1130;
             _1120:
-            D[R, S] = 1;
+            maze[R, S] = 1;
             _1130:
             S = S + 1;
             if (C == V * H + 1) goto _1200;
@@ -311,13 +311,13 @@ namespace Amazing
             _1150:
             Z = 1;
        
-            if (D[R, S] == 0) goto _1180;
+            if (maze[R, S] == 0) goto _1180;
        
-            D[R, S] = 3;
+            maze[R, S] = 3;
             Q = 0;
             goto _1190;
             _1180:
-            D[R, S] = 1;
+            maze[R, S] = 1;
             Q = 0;
             R = 1;
             S = 1;
@@ -326,7 +326,7 @@ namespace Amazing
             goto _210;
 
             _1200:
-            return D;
+            return maze;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Amazing.Gateway;
+using Amazing.Runtime;
 using Dependency;
 
 namespace Amazing
@@ -10,7 +11,7 @@ namespace Amazing
         static void Main(string[] args)
         {
             Shelf.ShelveInstance<IRandom>(new Runtime.Random());
-            Shelf.ShelveInstance<ITextInputOutput>(new Runtime.TextInputOutput());
+            Shelf.ShelveInstance<ITextInputOutput>(new TextInputOutput());
 
             MazeUserInterface.DisplayWelcome();
 

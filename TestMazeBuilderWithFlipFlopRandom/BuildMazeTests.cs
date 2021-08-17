@@ -25,6 +25,32 @@ namespace TestMazeBuilderWithFlipFlopRandom
                 {3,1,1,0,1,0}
             };
 
+            /*
+                :--:--:--:--:  :
+                I     I  I     I
+                :  :  :  :  :  :
+                I  I  I     I  I
+                :  :--:  :--:  :
+                I  I     I     I
+                :  :  :--:  :--:
+                I  I  I  I  I  I
+                :  :--:--:  :  :
+                I     I        I
+                :--:--:  :--:--:
+             */
+
+
+            /*
+                0     0     0     0    0    0
+                0    13    12    11    8    9
+                0    14    15     6    7   25
+                0    16     4     5    0   22
+                0     2     3    19   20   21
+                0     1    17    18   24   23
+             */
+
+
+
             maze.Should().BeEquivalentTo(expectation);
         }
 
