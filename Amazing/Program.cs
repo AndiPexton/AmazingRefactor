@@ -10,14 +10,15 @@ namespace Amazing
         static void Main(string[] args)
         {
             Shelf.ShelveInstance<IRandom>(new Runtime.Random());
+            Shelf.ShelveInstance<ITextInputOutput>(new Runtime.TextInputOutput());
 
-            Basic.DisplayWelcome();
+            MazeUserInterface.DisplayWelcome();
 
-            var (width, height) = Basic.GetDimensions();
+            var (width, height) = MazeUserInterface.GetDimensions();
 
             var maze = Basic.BuildMaze(width, height);
 
-            Basic.DrawMaze(maze);
+            MazeUserInterface.DrawMaze(maze);
 
             while (!Console.KeyAvailable) Thread.Sleep(1);
         }
