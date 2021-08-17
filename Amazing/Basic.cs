@@ -104,20 +104,20 @@ namespace Amazing
                 D[I, 0] = I == X ? 3 : 2;
             }
 
-            _190:
+       
             var C = 1;
             W[X, 1] = C;
             C = C + 1;
-            _200:
+         
             var R = X;
             var S = 1;
             goto _270;
             _210:
             if (R != H) goto _250;
-            _220:
+          
             if (S != V) goto _240;
 
-            _230:
+         
             R = 1;
             S = 1;
             goto _260;
@@ -131,20 +131,20 @@ namespace Amazing
             if (W[R, S] == 0) goto _210;
             _270:
             if (R - 1 == 0) goto _600;
-            _280:
+          
             if (W[R - 1, S] != 0) goto _600;
-            _290:
+           
             if (S - 1 == 0) goto _430;
-            _300:
+           
             if (W[R, S - 1] != 0) goto _430;
-            _310:
+         
             if (R == H) goto _350;
-            _320:
+           
             if (W[R + 1, S] != 0) goto _350;
-            _330:
+           
             X = (int) Random.RND(3);
 
-            _340:
+           
             switch (X)
             {
                 case 1: goto _940;
@@ -154,16 +154,16 @@ namespace Amazing
 
             _350:
             if (S != V) goto _380;
-            _360:
+         
             if (Z == 1) goto _410;
-            _370:
+         
             Q = 1;
             goto _390;
             _380:
             if (W[R, S + 1] != 0) goto _410;
             _390:
             X = (int) Random.RND(3);
-            _400:
+        
             switch (X)
             {
                 case 1: goto _940;
@@ -173,7 +173,7 @@ namespace Amazing
 
             _410:
             X = (int) Random.RND(2);
-            _420:
+       
             switch (X)
             {
                 case 1: goto _940;
@@ -182,13 +182,13 @@ namespace Amazing
 
             _430:
             if (R == H) goto _530;
-            _440:
+           
             if (W[R + 1, S] != 0) goto _530;
-            _450:
+           
             if (S != V) goto _480;
-            _460:
+           
             if (Z == 1) goto _510;
-            _470:
+         
             Q = 1;
             goto _490;
 
@@ -196,7 +196,7 @@ namespace Amazing
             if (W[R, S + 1] != 0) goto _510;
             _490:
             X = (int) Random.RND(3);
-            _500: //ON X GOTO 940,1020,1090
+           
             switch (X)
             {
                 case 1: goto _940;
@@ -206,7 +206,7 @@ namespace Amazing
 
             _510:
             X = (int) Random.RND(2);
-            _520: //ON X GOTO 940,1020
+            
             switch (X)
             {
                 case 1: goto _940;
@@ -215,16 +215,16 @@ namespace Amazing
 
             _530:
             if (S != V) goto _560;
-            _540:
+        
             if (Z == 1) goto _590;
-            _550:
+        
             Q = 1;
             goto _570;
             _560:
             if (W[R, S + 1] != 0) goto _590;
             _570:
             X = (int) (Random.RND(0) * 2 + 1);
-            _580: //1ON X GOTO 940,1090
+         
             switch (X)
             {
                 case 1: goto _940;
@@ -235,24 +235,24 @@ namespace Amazing
             goto _940;
             _600:
             if (S - 1 == 0) goto _790;
-            _610:
+           
             if (W[R, S - 1] != 0) goto _790;
-            _620:
+          
             if (R == H) goto _720;
-            _630:
+         
             if (W[R + 1, S] != 0) goto _720;
-            _640:
+           
             if (S != V) goto _670;
-            _650:
+           
             if (Z == 1) goto _700;
-            _660:
+          
             Q = 1;
             goto _680;
             _670:
             if (W[R, S + 1] != 0) goto _700;
             _680:
             X = (int) Random.RND(3);
-            _690: //ON X GOTO 980,1020,1090
+           
             switch (X)
             {
                 case 1: goto _980;
@@ -262,7 +262,7 @@ namespace Amazing
 
             _700:
             X = (int) Random.RND(2);
-            _710: //ON X GOTO 980,1020
+       
             switch (X)
             {
                 case 1: goto _980;
@@ -271,16 +271,16 @@ namespace Amazing
 
             _720:
             if (S != V) goto _750;
-            _730:
+           
             if (Z == 1) goto _780;
-            _740:
+           
             Q = 1;
             goto _760;
             _750:
             if (W[R, S + 1] != 0) goto _780;
             _760:
             X = (int) Random.RND(2);
-            _770: //ON X GOTO 980,1090
+          
             switch (X)
             {
                 case 1: goto _980;
@@ -292,20 +292,20 @@ namespace Amazing
 
             _790:
             if (R == H) goto _880;
-            _800:
+         
             if (W[R + 1, S] != 0) goto _880;
-            _810:
+          
             if (S != V) goto _840;
-            _820:
+           
             if (Z == 1) goto _870;
-            _830:
+           
             Q = 1;
             goto _990;
             _840:
             if (W[R, S + 1] != 0) goto _870;
-            _850:
+         
             X = (int) Random.RND(2);
-            _860: //ON X GOTO 1020,1090
+         
             switch (X)
             {
                 case 1: goto _1020;
@@ -316,9 +316,9 @@ namespace Amazing
             goto _1020;
             _880:
             if (S != V) goto _910;
-            _890:
+           
             if (Z == 1) goto _930;
-            _900:
+          
             Q = 1;
             goto _920;
 
@@ -330,49 +330,50 @@ namespace Amazing
             goto _1190;
             _940:
             W[R - 1, S] = C;
-            _950:
+           
             C = C + 1;
             D[R - 1, S] = 2;
             R = R - 1;
-            _960:
+          
             if (C == H * V + 1) goto _1200;
-            _970:
+           
             Q = 0;
             goto _270;
             _980:
             W[R, S - 1] = C;
             _990:
             C = C + 1;
-            _1000:
+           
             D[R, S - 1] = 1;
             S = S - 1;
             if (C == H * V + 1) goto _1200;
-            _1010:
+           
             Q = 0;
             goto _270;
+
             _1020:
             W[R + 1, S] = C;
-            _1030:
             C = C + 1;
             if (D[R, S] == 0) goto _1050;
-            _1040:
             D[R, S] = 3;
             goto _1060;
+
             _1050:
             D[R, S] = 2;
+
             _1060:
             R = R + 1;
-            _1070:
+     
             if (C == H * V + 1) goto _1200;
-            _1080:
+     
             goto _600;
             _1090:
             if (Q == 1) goto _1150;
-            _1100:
+     
             W[R, S + 1] = C;
             C = C + 1;
             if (D[R, S] == 0) goto _1120;
-            _1110:
+      
             D[R, S] = 3;
             goto _1130;
             _1120:
@@ -380,13 +381,13 @@ namespace Amazing
             _1130:
             S = S + 1;
             if (C == V * H + 1) goto _1200;
-            _1140:
+       
             goto _270;
             _1150:
             Z = 1;
-            _1160:
+       
             if (D[R, S] == 0) goto _1180;
-            _1170:
+       
             D[R, S] = 3;
             Q = 0;
             goto _1190;
