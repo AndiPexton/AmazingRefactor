@@ -14,17 +14,17 @@ namespace Amazing
         private static IRandom Random => Shelf.RetrieveInstance<IRandom>();
 
 
-        public static int[,] BuildMaze(int H, int V)
+        public static int[,] BuildMaze(int width, int height)
         {
-            var W = new int[H + 1, V + 1];
-            var maze = new int[H + 1, V + 1];
+            var W = new int[width + 1, height + 1];
+            var maze = new int[width + 1, height + 1];
 
             var Q = 0;
             var Z = 0;
-            var X = (int) Random.RND(H);
+            var X = (int) Random.RND(width);
 
 
-            foreach (var I in Enumerable.Range(1, H)) //130 FOR I=1 TO H
+            foreach (var I in Enumerable.Range(1, width)) //130 FOR I=1 TO H
             {
                 maze[I, 0] = I == X ? 3 : 2;
             }
@@ -38,9 +38,9 @@ namespace Amazing
             var S = 1;
             goto _270;
             _210:
-            if (R != H) goto _250;
+            if (R != width) goto _250;
           
-            if (S != V) goto _240;
+            if (S != height) goto _240;
 
          
             R = 1;
@@ -63,7 +63,7 @@ namespace Amazing
            
             if (W[R, S - 1] != 0) goto _430;
          
-            if (R == H) goto _350;
+            if (R == width) goto _350;
            
             if (W[R + 1, S] != 0) goto _350;
            
@@ -78,7 +78,7 @@ namespace Amazing
             }
 
             _350:
-            if (S != V) goto _380;
+            if (S != height) goto _380;
          
             if (Z == 1) goto _410;
          
@@ -106,11 +106,11 @@ namespace Amazing
             }
 
             _430:
-            if (R == H) goto _530;
+            if (R == width) goto _530;
            
             if (W[R + 1, S] != 0) goto _530;
            
-            if (S != V) goto _480;
+            if (S != height) goto _480;
            
             if (Z == 1) goto _510;
          
@@ -139,7 +139,7 @@ namespace Amazing
             }
 
             _530:
-            if (S != V) goto _560;
+            if (S != height) goto _560;
         
             if (Z == 1) goto _590;
         
@@ -163,11 +163,11 @@ namespace Amazing
            
             if (W[R, S - 1] != 0) goto _790;
           
-            if (R == H) goto _720;
+            if (R == width) goto _720;
          
             if (W[R + 1, S] != 0) goto _720;
            
-            if (S != V) goto _670;
+            if (S != height) goto _670;
            
             if (Z == 1) goto _700;
           
@@ -195,7 +195,7 @@ namespace Amazing
             }
 
             _720:
-            if (S != V) goto _750;
+            if (S != height) goto _750;
            
             if (Z == 1) goto _780;
            
@@ -216,11 +216,11 @@ namespace Amazing
             goto _980;
 
             _790:
-            if (R == H) goto _880;
+            if (R == width) goto _880;
          
             if (W[R + 1, S] != 0) goto _880;
           
-            if (S != V) goto _840;
+            if (S != height) goto _840;
            
             if (Z == 1) goto _870;
            
@@ -240,7 +240,7 @@ namespace Amazing
             _870:
             goto _1020;
             _880:
-            if (S != V) goto _910;
+            if (S != height) goto _910;
            
             if (Z == 1) goto _930;
           
@@ -260,7 +260,7 @@ namespace Amazing
             maze[R - 1, S] = 2;
             R = R - 1;
           
-            if (C == H * V + 1) goto _1200;
+            if (C == width * height + 1) return maze;
            
             Q = 0;
             goto _270;
@@ -271,7 +271,7 @@ namespace Amazing
            
             maze[R, S - 1] = 1;
             S = S - 1;
-            if (C == H * V + 1) goto _1200;
+            if (C == width * height + 1) return maze;
            
             Q = 0;
             goto _270;
@@ -289,7 +289,7 @@ namespace Amazing
             _1060:
             R = R + 1;
      
-            if (C == H * V + 1) goto _1200;
+            if (C == width * height + 1) return maze;
      
             goto _600;
             _1090:
@@ -305,7 +305,7 @@ namespace Amazing
             maze[R, S] = 1;
             _1130:
             S = S + 1;
-            if (C == V * H + 1) goto _1200;
+            if (C == height * width + 1) return maze;
        
             goto _270;
             _1150:
@@ -324,9 +324,6 @@ namespace Amazing
             goto _260;
             _1190:
             goto _210;
-
-            _1200:
-            return maze;
         }
     }
 }
