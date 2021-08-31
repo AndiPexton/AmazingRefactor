@@ -63,28 +63,6 @@ namespace Amazing
                 }
 
                 TextInputOutput.LPRINT(":");
-
-                /*
-                    2 = I
-                    1 or 3 = --
-
-                    Bin
-                    00
-                    "   "
-                    ":  "
-
-                    01
-                    "   "
-                    ":--
-                    
-                    10
-                    "  I"
-                    ":  "
-
-                    11
-                    "  I"
-                    ":=="
-                 */
             }
         }
 
