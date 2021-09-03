@@ -36,19 +36,19 @@ namespace Amazing
             Thread.Sleep(5000);
         }
 
-        public static void DrawMaze(int[,] maze)
+        public static void DrawMaze(int[,] maze, bool clear = true)
         {
             var width = maze.GetUpperBound(0);
             var height = maze.GetUpperBound(1);
 
-            TextInputOutput.CLS(width * 3 + 2, height * 2 + 2);
+            if (clear) TextInputOutput.CLS(width * 4 + 4, height * 2 + 3);
             Console.WriteLine();
 
             foreach (var row in Enumerable.Range(0, height + 1))
             {
                 if (row > 0)
                 {
-                    TextInputOutput.LPRINT_("I");
+                    TextInputOutput.LPRINT_("██");
                     foreach (var column in Enumerable.Range(1, width))
                     {
                         TextInputOutput.LPRINT_(DrawWall(maze[column, row]));
@@ -62,18 +62,18 @@ namespace Amazing
                     TextInputOutput.LPRINT_(DrawBoxTop(maze[column, row]));
                 }
 
-                TextInputOutput.LPRINT(":");
+                TextInputOutput.LPRINT("██");
             }
         }
 
         private static string DrawWall(int block) =>
             (block & 2) == 0 
-                ? "  I" 
-                : "   ";
+                ? "  ██"
+                : "    ";
 
         private static string DrawBoxTop(int block) =>
             (block & 1) == 0 
-                ? ":--" 
-                : ":  ";
+                ? "████"
+                : "██  ";
     }
 }

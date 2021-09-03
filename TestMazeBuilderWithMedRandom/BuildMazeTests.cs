@@ -12,7 +12,7 @@ namespace TestMazeBuilderWithMedRandom
         public void TestBuildMaze()
         {
             Shelf.ShelveInstance<IRandom>(new FakeMedRandom());
-            var maze = Basic.BuildMaze(5,5);
+            var maze = Maze.BuildMaze(5,5);
             var expectation = new int[,]
             {
                 {0,0,0,0,0,0}, 

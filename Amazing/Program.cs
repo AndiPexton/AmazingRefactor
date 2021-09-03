@@ -14,10 +14,10 @@ namespace Amazing
             Shelf.ShelveInstance<ITextInputOutput>(new TextInputOutput());
 
             MazeUserInterface.DisplayWelcome();
-
+            
             var (width, height) = MazeUserInterface.GetDimensions();
 
-            var maze = Basic.BuildMaze(width, height);
+            var maze = Maze.BuildMaze(width, height);
 
             MazeUserInterface.DrawMaze(maze);
 

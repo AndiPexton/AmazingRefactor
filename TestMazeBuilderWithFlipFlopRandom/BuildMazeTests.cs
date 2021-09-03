@@ -13,7 +13,7 @@ namespace TestMazeBuilderWithFlipFlopRandom
         {
             Shelf.Clear();
             Shelf.ShelveInstance<IRandom>(new FakeFlipFlopRandom());
-            var maze = Basic.BuildMaze(5,5);
+            var maze = Maze.BuildMaze(5,5);
 
             var expectation = new int[,]
             {
@@ -33,7 +33,7 @@ namespace TestMazeBuilderWithFlipFlopRandom
         {
             Shelf.Clear();
             Shelf.ShelveInstance<IRandom>(new FakeFlipFlopRandom(false));
-            var maze = Basic.BuildMaze(5, 5);
+            var maze = Maze.BuildMaze(5, 5);
 
             var expectation = new int[,]
             {
@@ -53,7 +53,7 @@ namespace TestMazeBuilderWithFlipFlopRandom
         {
             Shelf.Clear();
             Shelf.ShelveInstance<IRandom>(new FakeSequenceRandom(0));
-            var maze = Basic.BuildMaze(5, 5);
+            var maze = Maze.BuildMaze(5, 5);
             
             var expectation = new int[,]
             {
@@ -73,7 +73,7 @@ namespace TestMazeBuilderWithFlipFlopRandom
         {
             Shelf.Clear();
             Shelf.ShelveInstance<IRandom>(new FakeSequenceRandom(15));
-            var maze = Basic.BuildMaze(20, 20);
+            var maze = Maze.BuildMaze(20, 20);
 
             var expectation = new int[,]
             {
@@ -108,7 +108,7 @@ namespace TestMazeBuilderWithFlipFlopRandom
         {
             Shelf.Clear();
             Shelf.ShelveInstance<IRandom>(new FakeSequenceRandom(15));
-            var maze = Basic.BuildMaze(40, 40);
+            var maze = Maze.BuildMaze(40, 40);
 
             var expectation = new int[,]
             {
