@@ -12,7 +12,7 @@ namespace Amazing
     public class Maze
     {
         private static IRandom Random => Shelf.RetrieveInstance<IRandom>();
-        private static ITextInputOutput TextInputOutput => Shelf.RetrieveInstance<ITextInputOutput>();
+        private static IAnimationChangeOutput AnimationChangeOutput => Shelf.RetrieveInstance<IAnimationChangeOutput>();
 
         public static int[,] BuildMaze(int width, int height)
         {
@@ -26,12 +26,12 @@ namespace Amazing
             var column = opening;
             var row = 1;
 
-            DrawFrame();
+            AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
 
             foreach (var block in Enumerable.Range(1, width)) //130 FOR I=1 TO H
                 maze[block, 0] = block == opening ? 3 : 2;
 
-            DrawFrame();
+            AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
 
             var position = 1;
             positionHistory[opening, 1] = position;
@@ -52,7 +52,7 @@ namespace Amazing
             goto CheckRoute;
             AdvanceColumn:
             column = column + 1;
-            DrawFrame();
+            AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
             CheckRoute:
             if (positionHistory[column, row] == 0) goto CheckPosition;
             _270:
@@ -330,52 +330,33 @@ namespace Amazing
             goto CheckRoute;
 
 
-            void DrawFrame()
-            {
-                if (!Console.IsOutputRedirected)
-                {
-                    Console.SetCursorPosition(0, 0);
-                    Console.CursorVisible = false;
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    MazeUserInterface.DrawMaze(maze, clear);
-                    clear = false;
-                    Console.SetCursorPosition(column * 4 - 1, row * 2);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.Write("♥");
-                    Console.ResetColor();
-                    Console.CursorVisible = true;
-                    Console.SetCursorPosition(0, 0);
-                    Thread.Sleep(100);
-                }
-            }
+           
 
             void MoveRight()
             {
                 row = row + 1;
-                DrawFrame();
+                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
             }
 
             void MoveDown()
             {
                 column = column + 1;
-                DrawFrame();
+                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
             }
 
             void MoveUp()
             {
                 row = row - 1;
-                DrawFrame();
+                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
             }
 
             void MoveLeft()
             {
                 column = column - 1;
-                DrawFrame();
+                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
             }
         }
 
-    
 
         private static (int, int) StartOfNextRow(int row)
         {
