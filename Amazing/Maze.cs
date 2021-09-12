@@ -19,6 +19,7 @@ namespace Amazing
             var clear = true;
             var positionHistory = new int[width + 1, height + 1];
             var maze = new int[width + 1, height + 1];
+            var blocks = CalculateTotalBlocks(width, height);
 
             var Q = 0;
             var Z = 0;
@@ -33,9 +34,9 @@ namespace Amazing
 
             AnimationChangeOutput?.DrawFrame(maze, column, row);
 
-            var position = 1;
-            positionHistory[opening, 1] = position;
-            position += 1;
+            var blocksVisited = 1;
+            positionHistory[opening, 1] = blocksVisited;
+            blocksVisited += 1;
 
             goto _270;
             CheckPosition:
@@ -255,32 +256,32 @@ namespace Amazing
             _930:
             goto CheckPosition;
             _940:
-            positionHistory[column - 1, row] = position;
+            positionHistory[column - 1, row] = blocksVisited;
 
-            position = position + 1;
+            blocksVisited = blocksVisited + 1;
             maze[column - 1, row] = 2;
 
             MoveLeft();
-            if (position == width * height + 1) return maze;
+            if (blocksVisited == blocks) return maze;
 
             Q = 0;
             goto _270;
             _980:
-            positionHistory[column, row - 1] = position;
+            positionHistory[column, row - 1] = blocksVisited;
             _990:
-            position = position + 1;
+            blocksVisited = blocksVisited + 1;
 
             maze[column, row - 1] = 1;
 
             MoveUp();
-            if (position == width * height + 1) return maze;
+            if (blocksVisited == width * height + 1) return maze;
 
             Q = 0;
             goto _270;
 
             _1020:
-            positionHistory[column + 1, row] = position;
-            position = position + 1;
+            positionHistory[column + 1, row] = blocksVisited;
+            blocksVisited = blocksVisited + 1;
             if (maze[column, row] == 0) goto _1050;
             maze[column, row] = 3;
 
@@ -291,14 +292,14 @@ namespace Amazing
 
             _1060:
             MoveDown();
-            if (position == width * height + 1) return maze;
+            if (blocksVisited == blocks) return maze;
 
             goto _600;
             _1090:
             if (Q == 1) goto Set_Z;
 
-            positionHistory[column, row + 1] = position;
-            position = position + 1;
+            positionHistory[column, row + 1] = blocksVisited;
+            blocksVisited = blocksVisited + 1;
             if (maze[column, row] == 0) goto _1120;
 
             maze[column, row] = 3;
@@ -309,7 +310,7 @@ namespace Amazing
 
             _1130:
             MoveRight();
-            if (position == height * width + 1) return maze;
+            if (blocksVisited == blocks) return maze;
 
             goto _270;
             Set_Z:
@@ -355,6 +356,11 @@ namespace Amazing
                 column = column - 1;
                 AnimationChangeOutput?.DrawFrame(maze, column, row);
             }
+        }
+
+        private static int CalculateTotalBlocks(int width, int height)
+        {
+            return width * height + 1;
         }
 
 
