@@ -16,7 +16,6 @@ namespace Amazing
 
         public static int[,] BuildMaze(int width, int height)
         {
-            var clear = true;
             var positionHistory = new int[width + 1, height + 1];
             var maze = new int[width + 1, height + 1];
             var blocks = CalculateTotalBlocks(width, height);
@@ -274,7 +273,7 @@ namespace Amazing
             maze[column, row - 1] = 1;
 
             MoveUp();
-            if (blocksVisited == width * height + 1) return maze;
+            if (blocksVisited == blocks) return maze;
 
             Q = 0;
             goto _270;
