@@ -2,6 +2,6 @@
 {
     public interface IAnimationChangeOutput
     {
-        void DrawFrame(int[,] maze, bool clear, int column, int row);
+        void DrawFrame(int[,] maze, int column, int row);
     }
 }

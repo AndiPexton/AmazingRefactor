@@ -1,8 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dependency.Shelf" Version="2.0.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Amazing.Gateway\Amazing.Gateway.csproj" />

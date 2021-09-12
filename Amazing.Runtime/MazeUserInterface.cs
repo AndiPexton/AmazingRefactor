@@ -5,11 +5,11 @@ using Dependency;
 
 namespace Amazing
 {
-    public class MazeUserInterface
+    public class MazeUserInterface : IMazeUserInterface
     {
         private static ITextInputOutput TextInputOutput => Shelf.RetrieveInstance<ITextInputOutput>();
 
-        public static (int, int) GetDimensions()
+        public  (int, int) GetDimensions()
         {
             var width = 0;
             var height = 0;
@@ -26,7 +26,7 @@ namespace Amazing
             return (width, height);
         }
 
-        public static void DisplayWelcome()
+        public  void DisplayWelcome()
         {
             TextInputOutput.CLS(64, 16);
             TextInputOutput.PRINT(412, "AMAZING");
@@ -36,12 +36,15 @@ namespace Amazing
             Thread.Sleep(5000);
         }
 
-        public static void DrawMaze(int[,] maze, bool clear = true)
+        public void DrawMaze(int[,] maze)
         {
             var width = maze.GetUpperBound(0);
             var height = maze.GetUpperBound(1);
 
-            if (clear) TextInputOutput.CLS(width * 4 + 4, height * 2 + 3);
+            TextInputOutput.SetWindow(width * 4 + 4, height * 2 + 3);
+            TextInputOutput.SetCursorPosition(0, 0);
+            TextInputOutput.CursorVisible = false;
+
             Console.WriteLine();
 
             foreach (var row in Enumerable.Range(0, height + 1))
@@ -64,14 +67,16 @@ namespace Amazing
 
                 TextInputOutput.LPRINT("██");
             }
+
+            TextInputOutput.CursorVisible = true;
         }
 
-        private static string DrawWall(int block) =>
+        private  string DrawWall(int block) =>
             (block & 2) == 0 
                 ? "  ██"
                 : "    ";
 
-        private static string DrawBoxTop(int block) =>
+        private  string DrawBoxTop(int block) =>
             (block & 1) == 0 
                 ? "████"
                 : "██  ";

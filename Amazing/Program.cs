@@ -8,10 +8,14 @@ namespace Amazing
 {
     class Program
     {
+        private static IMazeUserInterface MazeUserInterface => Shelf.RetrieveInstance<IMazeUserInterface>();
+
         static void Main(string[] args)
         {
             Shelf.ShelveInstance<IRandom>(new Runtime.Random());
             Shelf.ShelveInstance<ITextInputOutput>(new TextInputOutput());
+            Shelf.ShelveInstance<IMazeUserInterface>(new MazeUserInterface());
+            Shelf.ShelveInstance<IAnimationChangeOutput>(new AnimationChangeOutput());
 
             MazeUserInterface.DisplayWelcome();
             

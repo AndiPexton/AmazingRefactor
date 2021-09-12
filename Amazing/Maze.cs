@@ -26,12 +26,12 @@ namespace Amazing
             var column = opening;
             var row = 1;
 
-            AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+            AnimationChangeOutput?.DrawFrame(maze, column, row);
 
             foreach (var block in Enumerable.Range(1, width)) //130 FOR I=1 TO H
                 maze[block, 0] = block == opening ? 3 : 2;
 
-            AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+            AnimationChangeOutput?.DrawFrame(maze, column, row);
 
             var position = 1;
             positionHistory[opening, 1] = position;
@@ -52,7 +52,7 @@ namespace Amazing
             goto CheckRoute;
             AdvanceColumn:
             column = column + 1;
-            AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+            AnimationChangeOutput?.DrawFrame(maze, column, row);
             CheckRoute:
             if (positionHistory[column, row] == 0) goto CheckPosition;
             _270:
@@ -335,25 +335,25 @@ namespace Amazing
             void MoveRight()
             {
                 row = row + 1;
-                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+                AnimationChangeOutput?.DrawFrame(maze, column, row);
             }
 
             void MoveDown()
             {
                 column = column + 1;
-                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+                AnimationChangeOutput?.DrawFrame(maze, column, row);
             }
 
             void MoveUp()
             {
                 row = row - 1;
-                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+                AnimationChangeOutput?.DrawFrame(maze, column, row);
             }
 
             void MoveLeft()
             {
                 column = column - 1;
-                AnimationChangeOutput?.DrawFrame(maze, clear, column, row);
+                AnimationChangeOutput?.DrawFrame(maze, column, row);
             }
         }
 
