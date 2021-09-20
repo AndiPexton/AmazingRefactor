@@ -37,24 +37,12 @@ namespace Amazing
             SetVisited(entrance, 1);
             blocksVisited += 1;
 
-        /*
-         Possible Actions
-
-            Move Up
-            Move Right
-            Move Down
-            Move Left
-            Seek Junction
-            
-         
-         */
-
-
+      
         while (!AllBlocksVisited())
         {
-            var NextAction = GetNextAction();
+            var nextAction = GetNextAction();
 
-            switch (NextAction)
+            switch (nextAction)
             {
                 case NextAction.MoveUp:
                     KnockThroughAndMoveUp();
@@ -81,12 +69,10 @@ namespace Amazing
                 case NextAction.MoveLeft:
                     KnockThroughAndMoveLeft();
                     break;
-                case NextAction.FindJunction:
+                default:
                     FindJunction();
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                }
         }
 
         return maze;
@@ -307,9 +293,8 @@ namespace Amazing
                             switch ((int) Random.RND(2))
                             {
                                 case 1: return NextAction.MoveDown; // goto MoveDown;
-                                case 2: return NextAction.MoveRight; // goto MoveRight;
                                 default:
-                                    throw new ArgumentOutOfRangeException();
+                                    return NextAction.MoveRight;
                             }
                         }
 
@@ -317,8 +302,6 @@ namespace Amazing
 
                         return NextAction.MoveUp; // goto MoveUp;
                     }
-
-                    ;
 
                     if (IsEndOfRow() || BlockToRightIsVisited())
                     {
@@ -328,9 +311,7 @@ namespace Amazing
                         switch ((int) Random.RND(2))
                         {
                             case 1: return NextAction.MoveUp; // goto MoveUp;
-                            case 2: return NextAction.MoveRight; // goto MoveRight;
-                            default:
-                                throw new ArgumentOutOfRangeException();
+                            default:  return NextAction.MoveRight;
                         }
                     }
 
@@ -339,9 +320,8 @@ namespace Amazing
                         switch ((int) Random.RND(2))
                         {
                             case 1: return NextAction.MoveUp; // goto MoveUp;
-                            case 2: return NextAction.MoveDown; // goto MoveDown;
                             default:
-                                throw new ArgumentOutOfRangeException();
+                                return NextAction.MoveDown;
                         }
                     }
 
@@ -349,9 +329,8 @@ namespace Amazing
                     {
                         case 1: return NextAction.MoveUp; // goto MoveUp;
                         case 2: return NextAction.MoveDown; // goto MoveDown;
-                        case 3: return NextAction.MoveRight; // goto MoveRight;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            return NextAction.MoveRight;
                     }
                 }
 
@@ -365,9 +344,8 @@ namespace Amazing
                         switch ((int) (Random.RND(0) * 2 + 1))
                         {
                             case 1: return NextAction.MoveLeft; // goto MoveLeft;
-                            case 2: return NextAction.MoveRight; // goto MoveRight;
                             default:
-                                throw new ArgumentOutOfRangeException();
+                                return NextAction.MoveRight;
                         }
                     }
 
@@ -376,9 +354,8 @@ namespace Amazing
                         switch ((int) Random.RND(2))
                         {
                             case 1: return NextAction.MoveLeft; // goto MoveLeft;
-                            case 2: return NextAction.MoveDown; // goto MoveDown;
                             default:
-                                throw new ArgumentOutOfRangeException();
+                                return NextAction.MoveDown;
                         }
                     }
 
@@ -386,9 +363,8 @@ namespace Amazing
                     {
                         case 1: return NextAction.MoveLeft; // goto MoveLeft;
                         case 2: return NextAction.MoveDown; // goto MoveDown;
-                        case 3: return NextAction.MoveRight; // goto MoveRight;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            return NextAction.MoveRight;
                     }
                 }
 
@@ -399,9 +375,7 @@ namespace Amazing
                         switch ((int) Random.RND(2))
                         {
                             case 1: return NextAction.MoveLeft; // goto MoveLeft;
-                            case 2: return NextAction.MoveUp; // goto MoveUp;
-                            default:
-                                throw new ArgumentOutOfRangeException();
+                            default: return NextAction.MoveUp;
                         }
                     }
 
@@ -409,9 +383,8 @@ namespace Amazing
                     {
                         case 1: return NextAction.MoveLeft; // goto MoveLeft;
                         case 2: return NextAction.MoveUp; // goto MoveUp;
-                        case 3: return NextAction.MoveRight; // goto MoveRight;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            return NextAction.MoveRight;
                     }
                 }
 
@@ -422,21 +395,11 @@ namespace Amazing
                 {
                     case 1: return NextAction.MoveLeft; // goto MoveLeft;
                     case 2: return NextAction.MoveUp; // goto MoveUp;
-                    case 3: return NextAction.MoveDown; // goto MoveDown;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        return NextAction.MoveDown;
                 }
             }
         }
 
-    }
-
-    public enum NextAction
-    {
-        MoveUp,
-        MoveRight,
-        MoveDown,
-        MoveLeft,
-        FindJunction
     }
 }
