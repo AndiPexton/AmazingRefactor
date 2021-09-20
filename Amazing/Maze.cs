@@ -40,9 +40,9 @@ namespace Amazing
 
             goto _270;
             CheckPosition:
-            if (column != width) goto AdvanceColumn;
+            if (IsNotEndOfRow()) goto AdvanceColumn;
 
-            if (row != height) goto NextRow;
+            if (IsNotLastRow()) goto NextRow;
 
 
             column = 1;
@@ -57,18 +57,10 @@ namespace Amazing
             CheckRoute:
             if (CurrentBlockIsNotVisited()) goto CheckPosition;
             _270:
-            if (column - 1 == 0) goto _600;
-
-            if (BlockToLeftIsVisited()) goto _600;
-
-            if (row - 1 == 0) goto _430;
-
-            if (BlockAboveIsVisited()) goto _430;
-
-            if (column == width) goto _350;
-
-            if (BlockToRightIsVisited()) goto _350;
-
+            if (IsStartOfRow() || BlockToLeftIsVisited()) goto _600;
+            if (IsFirstRow() || BlockAboveIsVisited()) goto _430;
+            if (IsEndOfRow() || BlockToRightIsVisited()) goto _350;
+            
             var direction = (int) Random.RND(3);
 
 
@@ -80,7 +72,7 @@ namespace Amazing
             }
 
             _350:
-            if (row != height) goto _380;
+            if (IsNotLastRow()) goto _380;
 
             if (Z == 1) goto _410;
 
@@ -460,6 +452,16 @@ namespace Amazing
             int CalculatePositionForHistory(int x, int y)
             {
                 return x-1 + (y -1) * height;
+            }
+
+            bool IsStartOfRow()
+            {
+                return column - 1 == 0;
+            }
+
+            bool IsNotEndOfRow()
+            {
+                return column != width;
             }
         }
 
