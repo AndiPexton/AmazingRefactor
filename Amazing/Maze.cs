@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using Amazing.Gateway;
@@ -16,25 +17,25 @@ namespace Amazing
 
         public static int[,] BuildMaze(int width, int height)
         {
-            var positionHistory = new int[width + 1, height + 1];
+            var positionHistory = new int[width  * height];
             var maze = new int[width + 1, height + 1];
             var blocks = CalculateTotalBlocks(width, height);
 
             var Q = 0;
             var Z = 0;
-            var opening = (int) Random.RND(width);
-            var column = opening;
+            var entrance = (int)Random.RND(width);
+            var column = entrance;
             var row = 1;
 
             AnimationChangeOutput?.DrawFrame(maze, column, row);
 
             foreach (var block in Enumerable.Range(1, width)) //130 FOR I=1 TO H
-                maze[block, 0] = block == opening ? 3 : 2;
+                maze[block, 0] = block == entrance ? 3 : 2;
 
             AnimationChangeOutput?.DrawFrame(maze, column, row);
 
             var blocksVisited = 1;
-            positionHistory[opening, 1] = blocksVisited;
+            SetVisited(entrance, 1);
             blocksVisited += 1;
 
             goto _270;
@@ -54,24 +55,24 @@ namespace Amazing
             column = column + 1;
             AnimationChangeOutput?.DrawFrame(maze, column, row);
             CheckRoute:
-            if (positionHistory[column, row] == 0) goto CheckPosition;
+            if (CurrentBlockIsNotVisited()) goto CheckPosition;
             _270:
             if (column - 1 == 0) goto _600;
 
-            if (positionHistory[column - 1, row] != 0) goto _600;
+            if (BlockToLeftIsVisited()) goto _600;
 
             if (row - 1 == 0) goto _430;
 
-            if (positionHistory[column, row - 1] != 0) goto _430;
+            if (BlockAboveIsVisited()) goto _430;
 
             if (column == width) goto _350;
 
-            if (positionHistory[column + 1, row] != 0) goto _350;
+            if (BlockToRightIsVisited()) goto _350;
 
-            opening = (int) Random.RND(3);
+            var direction = (int) Random.RND(3);
 
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _940;
                 case 2: goto _980;
@@ -86,11 +87,11 @@ namespace Amazing
             Q = 1;
             goto _390;
             _380:
-            if (positionHistory[column, row + 1] != 0) goto _410;
+            if (BlockBelowIsVisited()) goto _410;
             _390:
-            opening = (int) Random.RND(3);
+            direction = (int) Random.RND(3);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _940;
                 case 2: goto _980;
@@ -98,9 +99,9 @@ namespace Amazing
             }
 
             _410:
-            opening = (int) Random.RND(2);
+            direction = (int) Random.RND(2);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _940;
                 case 2: goto _980;
@@ -109,7 +110,7 @@ namespace Amazing
             _430:
             if (column == width) goto _530;
 
-            if (positionHistory[column + 1, row] != 0) goto _530;
+            if (BlockToRightIsVisited()) goto _530;
 
             if (row != height) goto _480;
 
@@ -119,11 +120,11 @@ namespace Amazing
             goto _490;
 
             _480:
-            if (positionHistory[column, row + 1] != 0) goto _510;
+            if (BlockBelowIsVisited()) goto _510;
             _490:
-            opening = (int) Random.RND(3);
+            direction = (int) Random.RND(3);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _940;
                 case 2: goto _1020;
@@ -131,9 +132,9 @@ namespace Amazing
             }
 
             _510:
-            opening = (int) Random.RND(2);
+            direction = (int) Random.RND(2);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _940;
                 case 2: goto _1020;
@@ -147,11 +148,11 @@ namespace Amazing
             Q = 1;
             goto _570;
             _560:
-            if (positionHistory[column, row + 1] != 0) goto _590;
+            if (BlockBelowIsVisited()) goto _590;
             _570:
-            opening = (int) (Random.RND(0) * 2 + 1);
+            direction = (int) (Random.RND(0) * 2 + 1);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _940;
                 case 2: goto _1090;
@@ -160,26 +161,26 @@ namespace Amazing
             _590:
             goto _940;
             _600:
-            if (row - 1 == 0) goto _790;
+            if (IsFirstRow()) goto _790;
 
-            if (positionHistory[column, row - 1] != 0) goto _790;
+            if (BlockAboveIsVisited()) goto _790;
 
-            if (column == width) goto _720;
+            if (IsEndOfRow()) goto _720;
 
-            if (positionHistory[column + 1, row] != 0) goto _720;
+            if (BlockToRightIsVisited()) goto _720;
 
-            if (row != height) goto _670;
+            if (IsNotLastRow()) goto _670;
 
             if (Z == 1) goto _700;
 
             Q = 1;
             goto _680;
             _670:
-            if (positionHistory[column, row + 1] != 0) goto _700;
+            if (BlockBelowIsVisited()) goto _700;
             _680:
-            opening = (int) Random.RND(3);
+            direction = (int) Random.RND(3);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _980;
                 case 2: goto _1020;
@@ -187,9 +188,9 @@ namespace Amazing
             }
 
             _700:
-            opening = (int) Random.RND(2);
+            direction = (int) Random.RND(2);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _980;
                 case 2: goto _1020;
@@ -203,11 +204,11 @@ namespace Amazing
             Q = 1;
             goto _760;
             _750:
-            if (positionHistory[column, row + 1] != 0) goto _780;
+            if (BlockBelowIsVisited()) goto _780;
             _760:
-            opening = (int) Random.RND(2);
+            direction = (int) Random.RND(2);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _980;
                 case 2: goto _1090;
@@ -217,22 +218,23 @@ namespace Amazing
             goto _980;
 
             _790:
-            if (column == width) goto _880;
+            if (IsEndOfRow()) goto _880;
 
-            if (positionHistory[column + 1, row] != 0) goto _880;
+            if (BlockToRightIsVisited()) goto _880;
 
-            if (row != height) goto _840;
+            if (IsNotLastRow()) goto _840;
 
             if (Z == 1) goto _870;
 
             Q = 1;
-            goto _990;
+           // SetCurrentBlockVisited();
+            goto _980;
             _840:
-            if (positionHistory[column, row + 1] != 0) goto _870;
+            if (BlockBelowIsVisited()) goto _870;
 
-            opening = (int) Random.RND(2);
+            direction = (int) Random.RND(2);
 
-            switch (opening)
+            switch (direction)
             {
                 case 1: goto _1020;
                 case 2: goto _1090;
@@ -249,38 +251,37 @@ namespace Amazing
             goto _920;
 
             _910:
-            if (positionHistory[column, row + 1] != 0) goto _930;
+            if (BlockBelowIsVisited()) goto _930;
             _920:
             goto _1090;
             _930:
             goto CheckPosition;
             _940:
-            positionHistory[column - 1, row] = blocksVisited;
+            SetBlockToLeftVisited();
 
-            blocksVisited = blocksVisited + 1;
+   
             maze[column - 1, row] = 2;
 
             MoveLeft();
-            if (blocksVisited == blocks) return maze;
+            if (AllBlocksVisited()) return maze;
 
             Q = 0;
             goto _270;
             _980:
-            positionHistory[column, row - 1] = blocksVisited;
-            _990:
-            blocksVisited = blocksVisited + 1;
-
-            maze[column, row - 1] = 1;
+            SetBlockBelowVisited();
+         
+            SetBlockAboveOpenTop();
 
             MoveUp();
-            if (blocksVisited == blocks) return maze;
+            if (AllBlocksVisited()) return maze;
 
             Q = 0;
             goto _270;
 
             _1020:
-            positionHistory[column + 1, row] = blocksVisited;
-            blocksVisited = blocksVisited + 1;
+            SetBlockToRightVisited();
+            
+   
             if (maze[column, row] == 0) goto _1050;
             maze[column, row] = 3;
 
@@ -291,38 +292,38 @@ namespace Amazing
 
             _1060:
             MoveDown();
-            if (blocksVisited == blocks) return maze;
+            if (AllBlocksVisited()) return maze;
 
             goto _600;
             _1090:
             if (Q == 1) goto Set_Z;
 
-            positionHistory[column, row + 1] = blocksVisited;
-            blocksVisited = blocksVisited + 1;
-            if (maze[column, row] == 0) goto _1120;
+            SetBlockAboveVisited();
+            
+            if (CurrentPositionBothClosed()) goto _1120;
 
-            maze[column, row] = 3;
+            SetBlockOpenBoth();
 
             goto _1130;
             _1120:
-            maze[column, row] = 1;
+            SetBlockOpenTop();
 
-            _1130:
+        _1130:
             MoveRight();
-            if (blocksVisited == blocks) return maze;
+            if (AllBlocksVisited()) return maze;
 
             goto _270;
             Set_Z:
             Z = 1;
 
-            if (maze[column, row] == 0) goto Set_Block_Open_Top_Reset_To_Start;
+            if (CurrentPositionBothClosed()) goto Set_Block_Open_Top_Reset_To_Start;
 
-            maze[column, row] = 3;
+            SetBlockOpenBoth();
 
             Q = 0;
             goto CheckPosition;
             Set_Block_Open_Top_Reset_To_Start:
-            maze[column, row] = 1;
+            SetBlockOpenTop();
 
             Q = 0;
             column = 1;
@@ -354,6 +355,111 @@ namespace Amazing
             {
                 column = column - 1;
                 AnimationChangeOutput?.DrawFrame(maze, column, row);
+            }
+
+            bool CurrentBlockIsNotVisited()
+            {
+                return !GetPositionHistory(column, row) ;
+            }
+
+            bool BlockToLeftIsVisited()
+            {
+                return GetPositionHistory(column - 1, row);
+            }
+
+            bool BlockAboveIsVisited()
+            {
+                return GetPositionHistory(column, row - 1);
+            }
+
+            bool BlockToRightIsVisited()
+            {
+                return GetPositionHistory(column + 1, row);
+            }
+
+            bool BlockBelowIsVisited()
+            {
+                return GetPositionHistory(column, row + 1);
+            }
+
+            bool GetPositionHistory(int x, int y)
+            {
+                return positionHistory[CalculatePositionForHistory(x, y)] != 0;
+            }
+
+            void SetBlockToLeftVisited()
+            {
+                SetVisited(column - 1, row);
+                blocksVisited = blocksVisited + 1;
+            }
+
+            void SetBlockBelowVisited()
+            {
+                SetVisited(column, row - 1);
+                blocksVisited = blocksVisited + 1;
+            }
+
+            bool AllBlocksVisited()
+            {
+                return blocksVisited == blocks;
+                //return positionHistory.All(x => x > 0);
+            }
+
+            void SetBlockToRightVisited()
+            {
+                SetVisited(column + 1, row);
+                blocksVisited = blocksVisited + 1;
+            }
+
+            void SetBlockAboveVisited()
+            {
+                SetVisited(column, row + 1);
+                blocksVisited = blocksVisited + 1;
+            }
+
+            bool CurrentPositionBothClosed()
+            {
+                return maze[column, row] == 0;
+            }
+
+            void SetBlockOpenTop()
+            {
+                maze[column, row] = 1;
+            }
+
+            void SetBlockOpenBoth()
+            {
+                maze[column, row] = 3;
+            }
+
+            void SetBlockAboveOpenTop()
+            {
+                maze[column, row - 1] = 1;
+            }
+
+            bool IsFirstRow()
+            {
+                return row - 1 == 0;
+            }
+
+            bool IsEndOfRow()
+            {
+                return column == width;
+            }
+
+            bool IsNotLastRow()
+            {
+                return row != height;
+            }
+
+            void SetVisited(int x, int y)
+            {
+                positionHistory[CalculatePositionForHistory(x, y)] = blocksVisited;
+            }
+
+            int CalculatePositionForHistory(int x, int y)
+            {
+                return x-1 + (y -1) * height;
             }
         }
 
