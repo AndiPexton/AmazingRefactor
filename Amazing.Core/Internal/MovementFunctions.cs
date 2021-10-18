@@ -5,7 +5,7 @@ namespace Amazing.Core.Internal
 {
     internal static class MovementFunctions
     {
-        public static IMazeState MoveRightOrMakeExitThenFindNextJunction(this IMazeState mazeState) =>
+        public static IMazeState MoveDownOrMakeExitThenFindNextJunction(this IMazeState mazeState) =>
             mazeState.IsLastRow()
                 ? mazeState
                     .SetExitComplete()
@@ -14,13 +14,13 @@ namespace Amazing.Core.Internal
                 : mazeState
                     .SetBlockAboveVisited()
                     .SetBlockOpenTop()
-                    .MoveRight();
+                    .MoveDown();
 
-        public static IMazeState OpenRightAndMoveDown(this IMazeState mazeState) =>
+        public static IMazeState OpenRightAndMoveRight(this IMazeState mazeState) =>
             mazeState
                 .SetBlockToRightVisited()
                 .SetCurrentBlockOpenRight()
-                .MoveDown();
+                .MoveRight();
 
         public static IMazeState KnockThroughAndMoveLeft(this IMazeState state) => 
             state
@@ -66,13 +66,13 @@ namespace Amazing.Core.Internal
                 Row = state.Row - 1
             }).DrawFrame();
 
-        public static IMazeState MoveDown(this IMazeState state) =>
+        public static IMazeState MoveRight(this IMazeState state) =>
             Merge<IMazeState>(state, new
             {
                 Column = state.Column + 1
             }).DrawFrame();
 
-        private static IMazeState MoveRight(this IMazeState state) =>
+        private static IMazeState MoveDown(this IMazeState state) =>
             Merge<IMazeState>(state, new
             {
                 Row = state.Row + 1
@@ -82,15 +82,20 @@ namespace Amazing.Core.Internal
         {
             do
             {
-                if (state.IsNotEndOfRow())
-                    state = state.MoveDown();
-                else if (state.IsNotLastRow())
-                    state = state.SetToBeginningOfNextRow();
-                else
-                    state = state.SetToBeginning();
+                state = state.SeekNext();
             } while (state.CurrentBlockIsNotVisited());
 
             return state;
         }
+
+        private static IMazeState SeekNext(this IMazeState state) =>
+            state.IsEndOfRow() 
+                ? MoveToStartOfNextLogicalRow(state)
+                : state.MoveRight();
+
+        private static IMazeState MoveToStartOfNextLogicalRow(IMazeState state) =>
+            state.IsLastRow() 
+                ? state.SetToBeginning() 
+                : state.SetToBeginningOfNextRow();
     }
 }

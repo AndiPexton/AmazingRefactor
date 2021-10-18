@@ -19,10 +19,10 @@ namespace Amazing.Core.Internal
             {
                 NextAction.MoveUp =>
                     mazeState.KnockThroughAndMoveUp(),
-                NextAction.MoveRight =>
-                    mazeState.MoveRightOrMakeExitThenFindNextJunction(), //TODO : is this Down or right?
                 NextAction.MoveDown =>
-                    mazeState.OpenRightAndMoveDown(), //TODO : is this right or down?
+                    mazeState.MoveDownOrMakeExitThenFindNextJunction(), 
+                NextAction.MoveRight =>
+                    mazeState.OpenRightAndMoveRight(), 
                 NextAction.MoveLeft =>
                     mazeState.KnockThroughAndMoveLeft(),
                 _ =>
@@ -31,17 +31,17 @@ namespace Amazing.Core.Internal
         
         private static NextAction GetNextAction(this IMazeState state) =>
             CanNotGoLeft(state) 
-                ? state.ResolveUpRightDownOrSeek() 
+                ? state.ResolveUpDownSeekOrRight() 
                 : state.ResolveUpDownRightOrLeft();
 
-        private static NextAction ResolveUpRightDownOrSeek(this IMazeState state) =>
+        private static NextAction ResolveUpDownSeekOrRight(this IMazeState state) =>
             state.CanNotGoUp() 
-                ? state.ResolveRightSeekUpOrDown() 
+                ? state.ResolveDownSeekUpOrRight() 
                 : state.ResolveDownUpOrRight();
 
         private static NextAction ResolveDownUpOrRight(this IMazeState state) =>
-            state.CanNotMoveDown() 
-                ? ResolveUpOrRight(state) 
+            state.CanNotMoveRight() 
+                ? ResolveUpOrDown(state) 
                 : state.ResolveRightUpOrDown();
 
         private static NextAction ResolveUpDownRightOrLeft(this IMazeState state) =>
@@ -50,64 +50,64 @@ namespace Amazing.Core.Internal
                 : state.ResolveDownLeftUpOrRight();
 
         private static NextAction ResolveDownRightOrLeft(this IMazeState state) =>
-            state.CanNotMoveDown() 
-                ? state.ResolveRightOrLeft() 
+            state.CanNotMoveRight() 
+                ? state.ResolveDownOrLeft() 
                 : state.ResolveRightLeftOrDown();
 
-        private static NextAction ResolveRightOrLeft(this IMazeState state) =>
-            state.CanNotMoveRight()
+        private static NextAction ResolveDownOrLeft(this IMazeState state) =>
+            state.CanNotMoveDown()
                 ? NextAction.MoveLeft
-                : LeftOrRight();
+                : LeftOrDown();
 
         private static NextAction ResolveDownLeftUpOrRight(this IMazeState state) =>
-            state.CanNotMoveDown() 
-                ? state.ResolveLeftUpOrRight() 
-                : LeftUpOrDown();
-
-        private static NextAction ResolveRightLeftOrDown(this IMazeState state) =>
             state.CanNotMoveRight() 
-                ? LeftOrDown() 
-                : LeftDownOrRight();
-
-        private static NextAction ResolveLeftUpOrRight(this IMazeState state) =>
-            state.CanNotMoveRight() 
-                ? LeftOrUp() 
+                ? state.ResolveLeftUpOrDown() 
                 : LeftUpOrRight();
 
-        private static NextAction ResolveRightUpOrDown(this IMazeState state) =>
-            state.CanNotMoveRight() 
-                ? UpOrDown() 
-                : UpDownOrRight();
-
-        private static NextAction ResolveRightSeekUpOrDown(this IMazeState state) =>
+        private static NextAction ResolveRightLeftOrDown(this IMazeState state) =>
             state.CanNotMoveDown() 
-                ? state.ResolveRightOrSeek() 
+                ? LeftOrRight() 
+                : LeftRightOrDown();
+
+        private static NextAction ResolveLeftUpOrDown(this IMazeState state) =>
+            state.CanNotMoveDown() 
+                ? LeftOrUp() 
+                : LeftUpOrDown();
+
+        private static NextAction ResolveRightUpOrDown(this IMazeState state) =>
+            state.CanNotMoveDown() 
+                ? UpOrRight() 
+                : UpRightOrDown();
+
+        private static NextAction ResolveDownSeekUpOrRight(this IMazeState state) =>
+            state.CanNotMoveRight() 
+                ? state.ResolveDownOrSeek() 
                 : state.ResolveUpDownOrRight();
 
         private static NextAction ResolveUpDownOrRight(this IMazeState state) =>
             state.IsNotLastRow() 
-                ? state.ResolveDownOrRight() 
-                : state.ResolveDownOrUp();
+                ? state.ResolveRightOrDown() 
+                : state.ResolveRightOrUp();
 
-        private static NextAction ResolveDownOrUp(this IMazeState state) =>
+        private static NextAction ResolveRightOrUp(this IMazeState state) =>
             state.ExitComplete 
-                ? NextAction.MoveDown 
+                ? NextAction.MoveRight 
                 : NextAction.MoveUp;
 
-        private static NextAction ResolveDownOrRight(this IMazeState state) =>
+        private static NextAction ResolveRightOrDown(this IMazeState state) =>
             state.BlockBelowIsVisited() 
-                ? NextAction.MoveDown 
-                : DownOrRight();
+                ? NextAction.MoveRight 
+                : RightOrDown();
 
-        private static NextAction ResolveUpOrRight(this IMazeState state) =>
-            state.CanNotMoveRight() 
+        private static NextAction ResolveUpOrDown(this IMazeState state) =>
+            state.CanNotMoveDown() 
                 ? NextAction.MoveUp 
-                : UpOrRight();
+                : UpOrDown();
 
-        private static NextAction ResolveRightOrSeek(this IMazeState state) =>
-            state.CanNotMoveRight() 
+        private static NextAction ResolveDownOrSeek(this IMazeState state) =>
+            state.CanNotMoveDown() 
                 ? NextAction.FindJunction 
-                : NextAction.MoveRight;
+                : NextAction.MoveDown;
 
         private static bool CanNotGoUp(this IMazeState state) => 
             state.IsFirstRow() 
@@ -117,11 +117,11 @@ namespace Amazing.Core.Internal
             state.IsStartOfRow() 
             || state.BlockToLeftIsVisited();
 
-        private static bool CanNotMoveDown(this IMazeState state) =>
+        private static bool CanNotMoveRight(this IMazeState state) =>
             state.IsEndOfRow() 
             || state.BlockToRightIsVisited();
 
-        private static bool CanNotMoveRight(this IMazeState state) =>
+        private static bool CanNotMoveDown(this IMazeState state) =>
             state.IsNotLastRow() && state.BlockBelowIsVisited() 
             || !state.IsNotLastRow() && state.ExitComplete;
     }

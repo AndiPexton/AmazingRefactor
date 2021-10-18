@@ -3,8 +3,8 @@
     internal enum NextAction
     {
         MoveUp,
-        MoveRight,
         MoveDown,
+        MoveRight,
         MoveLeft,
         FindJunction
     }

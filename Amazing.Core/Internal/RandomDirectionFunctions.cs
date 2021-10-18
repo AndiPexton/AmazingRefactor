@@ -7,18 +7,11 @@ namespace Amazing.Core.Internal
     {
         private static IRandom Random => Shelf.RetrieveInstance<IRandom>();
 
-        public static NextAction DownOrRight() =>
+        public static NextAction RightOrDown() =>
             RandomOfTwo() switch
             {
-                1 => NextAction.MoveDown,
-                _ => NextAction.MoveRight
-            };
-
-        public static NextAction UpOrRight() =>
-            RandomOfTwo() switch
-            {
-                1 => NextAction.MoveUp,
-                _ => NextAction.MoveRight
+                1 => NextAction.MoveRight,
+                _ => NextAction.MoveDown
             };
 
         public static NextAction UpOrDown() =>
@@ -28,42 +21,49 @@ namespace Amazing.Core.Internal
                 _ => NextAction.MoveDown
             };
 
-        public static NextAction UpDownOrRight() =>
+        public static NextAction UpOrRight() =>
+            RandomOfTwo() switch
+            {
+                1 => NextAction.MoveUp,
+                _ => NextAction.MoveRight
+            };
+
+        public static NextAction UpRightOrDown() =>
             RandomOfThree() switch
             {
                 1 => NextAction.MoveUp,
-                2 => NextAction.MoveDown,
-                _ => NextAction.MoveRight
-            };
-
-        public static NextAction LeftOrRight() =>
-            (int) (Random.RND(0) * 2 + 1) switch // TODO : RandomOfTwo()?
-            {
-                1 => NextAction.MoveLeft,
-                _ => NextAction.MoveRight
+                2 => NextAction.MoveRight,
+                _ => NextAction.MoveDown
             };
 
         public static NextAction LeftOrDown() =>
-            RandomOfTwo() switch
+            (int) (Random.RND(0) * 2 + 1) switch // TODO : RandomOfTwo()?
             {
                 1 => NextAction.MoveLeft,
                 _ => NextAction.MoveDown
             };
 
-        public static NextAction LeftDownOrRight() =>
-            RandomOfThree() switch
+        public static NextAction LeftOrRight() =>
+            RandomOfTwo() switch
             {
                 1 => NextAction.MoveLeft,
-                2 => NextAction.MoveDown,
                 _ => NextAction.MoveRight
             };
 
-        public static NextAction LeftUpOrRight() =>
+        public static NextAction LeftRightOrDown() =>
+            RandomOfThree() switch
+            {
+                1 => NextAction.MoveLeft,
+                2 => NextAction.MoveRight,
+                _ => NextAction.MoveDown
+            };
+
+        public static NextAction LeftUpOrDown() =>
             RandomOfThree() switch
             {
                 1 => NextAction.MoveLeft,
                 2 => NextAction.MoveUp,
-                _ => NextAction.MoveRight
+                _ => NextAction.MoveDown
             };
 
         public static NextAction LeftOrUp() =>
@@ -73,12 +73,12 @@ namespace Amazing.Core.Internal
                 _ => NextAction.MoveUp
             };
 
-        public static NextAction LeftUpOrDown() =>
+        public static NextAction LeftUpOrRight() =>
             RandomOfThree() switch
             {
                 1 => NextAction.MoveLeft,
                 2 => NextAction.MoveUp,
-                _ => NextAction.MoveDown
+                _ => NextAction.MoveRight
             };
 
         private static int RandomOfTwo() => 
