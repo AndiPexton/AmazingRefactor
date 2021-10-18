@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Amazing
+namespace Amazing.Gateway
 {
     public interface IMazeState
     {
@@ -9,7 +8,6 @@ namespace Amazing
         IEnumerable<IEnumerable<int>> Maze { get; }
         int Blocks { get; }
         bool ExitComplete { get; }
-        int Entrance { get; }
         int Column { get; }
         int Row { get; }
         int Width { get; }

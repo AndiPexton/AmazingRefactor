@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Amazing.Gateway;
 using static Amazing.Core.Internal.RandomDirectionFunctions;
 
 namespace Amazing.Core.Internal

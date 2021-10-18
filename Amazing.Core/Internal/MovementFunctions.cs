@@ -1,4 +1,5 @@
-﻿using static Shadow.Quack.Duck;
+﻿using Amazing.Gateway;
+using static Shadow.Quack.Duck;
 
 namespace Amazing.Core.Internal
 {

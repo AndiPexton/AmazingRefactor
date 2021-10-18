@@ -1,4 +1,5 @@
-﻿using Dependency;
+﻿using Amazing.Gateway;
+using Dependency;
 
 namespace Amazing.Core.Internal
 {

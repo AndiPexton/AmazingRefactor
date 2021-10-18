@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Amazing.Gateway;
 using static Shadow.Quack.Duck;
 
 namespace Amazing.Core.Internal

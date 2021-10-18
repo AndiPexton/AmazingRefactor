@@ -1,4 +1,6 @@
-﻿namespace Amazing.Core.Internal
+﻿using Amazing.Gateway;
+
+namespace Amazing.Core.Internal
 {
     internal static class StatePositionFunctions
     {
