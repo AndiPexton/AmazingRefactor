@@ -1,6 +1,6 @@
 using Amazing.Gateway;
 
-namespace TestMazeBuilderWithMaxRandom
+namespace TestMazeBuilder.Fakes
 {
     public class FakeMaxRandom : IRandom
     {

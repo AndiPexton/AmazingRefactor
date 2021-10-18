@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Amazing.Core;
 using Amazing.Gateway;
 using Amazing.Runtime;
 using Dependency;

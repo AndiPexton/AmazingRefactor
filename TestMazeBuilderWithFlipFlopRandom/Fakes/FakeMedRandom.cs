@@ -1,7 +1,7 @@
 using System;
 using Amazing.Gateway;
 
-namespace TestMazeBuilderWithMedRandom
+namespace TestMazeBuilder.Fakes
 {
     public class FakeMedRandom : IRandom
     {

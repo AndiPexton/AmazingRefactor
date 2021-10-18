@@ -7,19 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazing", "Amazing\Amazing.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestFunctions", "TestFunctions\TestFunctions.csproj", "{AB6C73E4-964E-414B-88D2-A160084B8DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazing.Runtime", "Amazing.Runtime\Amazing.Runtime.csproj", "{0A03BD85-E644-4BE7-94D5-E0E9AAC509CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazing.Runtime", "Amazing.Runtime\Amazing.Runtime.csproj", "{0A03BD85-E644-4BE7-94D5-E0E9AAC509CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazing.Gateway", "Amazing.Gateway\Amazing.Gateway.csproj", "{8F38DA43-ADD5-443D-B95F-93241EAC9377}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMazeBuilderWithMaxRandom", "TestMazeBuilderWithMaxRandom\TestMazeBuilderWithMaxRandom.csproj", "{33AC37E3-2C6B-4A71-B307-0CC989A6CF4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazing.Gateway", "Amazing.Gateway\Amazing.Gateway.csproj", "{8F38DA43-ADD5-443D-B95F-93241EAC9377}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AC4B2757-498A-4FB5-8F16-195A9B4B8669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMazeBuilderWithMinRandom", "TestMazeBuilderWithMinRandom\TestMazeBuilderWithMinRandom.csproj", "{F6EEB5FA-909D-42FA-B708-709FE71F6972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMazeBuilder", "TestMazeBuilderWithFlipFlopRandom\TestMazeBuilder.csproj", "{1525B002-3417-47AE-ADEB-C58C16749028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMazeBuilderWithMedRandom", "TestMazeBuilderWithMedRandom\TestMazeBuilderWithMedRandom.csproj", "{07E4188C-A5D1-4B01-A290-EDD259358FAC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMazeBuilderWithFlipFlopRandom", "TestMazeBuilderWithFlipFlopRandom\TestMazeBuilderWithFlipFlopRandom.csproj", "{1525B002-3417-47AE-ADEB-C58C16749028}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazing.Core", "Amazing.Core\Amazing.Core.csproj", "{FFB780C9-1D0F-4200-A2E4-DDEA333EA66C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,31 +39,20 @@ Global
 		{8F38DA43-ADD5-443D-B95F-93241EAC9377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F38DA43-ADD5-443D-B95F-93241EAC9377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F38DA43-ADD5-443D-B95F-93241EAC9377}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33AC37E3-2C6B-4A71-B307-0CC989A6CF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33AC37E3-2C6B-4A71-B307-0CC989A6CF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33AC37E3-2C6B-4A71-B307-0CC989A6CF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33AC37E3-2C6B-4A71-B307-0CC989A6CF4F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6EEB5FA-909D-42FA-B708-709FE71F6972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6EEB5FA-909D-42FA-B708-709FE71F6972}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6EEB5FA-909D-42FA-B708-709FE71F6972}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6EEB5FA-909D-42FA-B708-709FE71F6972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07E4188C-A5D1-4B01-A290-EDD259358FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07E4188C-A5D1-4B01-A290-EDD259358FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07E4188C-A5D1-4B01-A290-EDD259358FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07E4188C-A5D1-4B01-A290-EDD259358FAC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1525B002-3417-47AE-ADEB-C58C16749028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1525B002-3417-47AE-ADEB-C58C16749028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1525B002-3417-47AE-ADEB-C58C16749028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1525B002-3417-47AE-ADEB-C58C16749028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB780C9-1D0F-4200-A2E4-DDEA333EA66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB780C9-1D0F-4200-A2E4-DDEA333EA66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB780C9-1D0F-4200-A2E4-DDEA333EA66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB780C9-1D0F-4200-A2E4-DDEA333EA66C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AB6C73E4-964E-414B-88D2-A160084B8DAC} = {AC4B2757-498A-4FB5-8F16-195A9B4B8669}
-		{33AC37E3-2C6B-4A71-B307-0CC989A6CF4F} = {AC4B2757-498A-4FB5-8F16-195A9B4B8669}
-		{F6EEB5FA-909D-42FA-B708-709FE71F6972} = {AC4B2757-498A-4FB5-8F16-195A9B4B8669}
-		{07E4188C-A5D1-4B01-A290-EDD259358FAC} = {AC4B2757-498A-4FB5-8F16-195A9B4B8669}
 		{1525B002-3417-47AE-ADEB-C58C16749028} = {AC4B2757-498A-4FB5-8F16-195A9B4B8669}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

@@ -1,6 +1,6 @@
-﻿namespace Amazing
+﻿namespace Amazing.Core.Internal
 {
-    public enum NextAction
+    internal enum NextAction
     {
         MoveUp,
         MoveRight,

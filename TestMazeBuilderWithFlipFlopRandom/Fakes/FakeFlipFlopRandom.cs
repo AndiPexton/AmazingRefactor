@@ -1,7 +1,6 @@
-using System;
 using Amazing.Gateway;
 
-namespace TestMazeBuilderWithFlipFlopRandom
+namespace TestMazeBuilder.Fakes
 {
     public class FakeFlipFlopRandom : IRandom
     {

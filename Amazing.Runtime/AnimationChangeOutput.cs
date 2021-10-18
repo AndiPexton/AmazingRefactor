@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using Dependency;
 
@@ -9,7 +11,7 @@ namespace Amazing.Runtime
         private static ITextInputOutput TextInputOutput => Shelf.RetrieveInstance<ITextInputOutput>();
         private static IMazeUserInterface MazeUserInterface => Shelf.RetrieveInstance<IMazeUserInterface>();
 
-        public void DrawFrame(int[,] maze, int column, int row)
+        public void DrawFrame(IEnumerable<IEnumerable<int>> maze, int column, int row)
         {
             if (!Console.IsOutputRedirected)
             {
