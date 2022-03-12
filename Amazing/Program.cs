@@ -13,6 +13,7 @@ namespace Amazing
 
         static void Main(string[] args)
         {
+            Shelf.Clear();
             Shelf.ShelveInstance<IRandom>(new Runtime.Random());
             Shelf.ShelveInstance<ITextInputOutput>(new TextInputOutput());
             Shelf.ShelveInstance<IMazeUserInterface>(new MazeUserInterface());

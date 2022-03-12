@@ -37,7 +37,7 @@ namespace Amazing.Core.Internal
                 });
 
         private static IMazeState SetFirstRowWithEntrance(this IMazeState mazeState) =>
-            Duck.Merge<IMazeState>(mazeState, new
+            mazeState.MergeWith(new
             {
                 Maze = CreateMazeWithFirstRow(mazeState)
             });

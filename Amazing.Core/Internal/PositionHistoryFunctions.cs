@@ -28,13 +28,13 @@ namespace Amazing.Core.Internal
             state.BlocksVisited == state.Blocks;
 
         public static IMazeState SetCurrentVisited(this IMazeState state) =>
-            Duck.Merge<IMazeState>(state, new
+            state.MergeWith(new
             {
                 PositionHistory = state.GetNewHistory(state.Column, state.Row)
             });
 
         public static IMazeState SetVisited(this IMazeState state, int x, int y) =>
-            Duck.Merge<IMazeState>(state, new
+            state.MergeWith(new
             {
                 PositionHistory = state.GetNewHistory(x, y)
             });
@@ -47,7 +47,7 @@ namespace Amazing.Core.Internal
         }
 
         public static IMazeState IncBlocksVisited(this IMazeState mazeState) =>
-            Duck.Merge<IMazeState>(mazeState, new
+            mazeState.MergeWith(new
             {
                 BlocksVisited = mazeState.BlocksVisited + 1
             });

@@ -18,7 +18,7 @@ namespace Amazing.Runtime
                 TextInputOutput.ForegroundColor = ConsoleColor.Cyan;
                 MazeUserInterface.DrawMaze(maze);
                 DrawActor(column, row);
-                Thread.Sleep(10);
+                Thread.Sleep(1);
             }
         }
 
